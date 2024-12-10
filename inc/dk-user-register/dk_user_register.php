@@ -62,11 +62,6 @@ function registrar_nuevo_usuario($cf7)
 
         // Depuración: ver si se ha actualizado correctamente
         error_log('Moto guardada correctamente para el usuario ID: ' . $user_id);
-
-        update_user_meta($user_id, 'marca_moto', $marca_clean);
-        update_user_meta($user_id, 'referencia', $referencia_clean);
-        update_user_meta($user_id, 'placa', $placa);
-        update_user_meta($user_id, 'modelo', $modelo);
       } else {
         // Ha ocurrido un error al crear el usuario
       }
