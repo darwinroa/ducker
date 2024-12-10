@@ -85,6 +85,16 @@ function dk_query_maintenance_function()
   $referencia = get_the_author_meta('referencia', $currentUserID);
   $placa = get_the_author_meta('placa', $currentUserID);
   $modelo = get_the_author_meta('modelo', $currentUserID);
+
+  $motosRegistradas = get_user_meta($currentUserID, 'motos', true);
+
+  // Generar el select con las placas.
+  $options = "<option value=''>Seleccione una placa</option>";
+  foreach ($motosRegistradas as $moto) {
+    $placaMoto = htmlspecialchars($moto["placa"]);
+    $options .= "<option value=' $placaMoto'>$placaMoto</option>";
+  }
+
   ob_start();
   // Construir el mensaje de respuesta con los datos del usuario
   $html = '';
@@ -94,7 +104,8 @@ function dk_query_maintenance_function()
       <h5 class='dk__moto-info'>Referencia: <span>$referencia</span></h5>
       <h5 class='dk__moto-info'>Modelo: <span>$modelo</span></h5>
       <h5 class='dk__moto-info'>Placa: <span>$placa</span></h5>
-      <h5 class='dk__moto-info'><span></span></h5>
+      <h5 class='dk__moto-info'>Selecciona una placa:</h5>
+      <select name='placas' id='placas'>$options</select>
     </div>
   ";
   $html .= "
