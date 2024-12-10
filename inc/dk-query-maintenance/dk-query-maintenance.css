@@ -1,0 +1,95 @@
+.dk__container_moto-info,
+.dk__container_consulta-moto {
+  max-width: 800px;
+  margin: auto;
+}
+
+.dk__container_moto-info .dk__moto-info {
+  font-family: "Amatic SC", Sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  color: white;
+  margin-top: 0;
+}
+
+.dk__container_moto-info .dk__moto-info span {
+  font-family: "Karla", Sans-serif;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.dk__container_consulta-moto {
+  text-align: center;
+  padding: 2rem;
+  background-color: var( --e-global-color-primary );
+}
+
+.dk__container_consulta-moto .dk__consulta_moto-description {
+  font-family: "Amatic SC", Sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.dk__container_consulta-moto .dk__consulta_moto-form input {
+  background-color: transparent;
+  border: none;
+  border-bottom: solid 2px;
+  outline: none;
+  padding: 10px 15px;
+}
+
+.dk__container_consulta-moto .dk__consulta_moto-form button {
+  background-color: var(--e-global-color-text);
+  padding: 10px 15px;
+  border-radius: 50px;
+  border: solid 2px var(--e-global-color-text);
+  color: var( --e-global-color-primary );
+  transition: all .2s ease-in;
+}
+
+.dk__container_consulta-moto .dk__consulta_moto-form button:hover {
+  background-color: transparent;
+  color: var(--e-global-color-text);
+}
+
+.dk_result {
+  margin: 3rem auto;
+}
+
+.dk__table-maintenance {
+  background-color: #f7f7f7;
+}
+
+table.dk__table-maintenance thead {
+  background-color: var( --e-global-color-primary );
+  font-family: "Amatic SC", Sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+table.dk__table-maintenance thead th{
+	font-weight: 900;
+	font-size: 30px;
+}
+
+table.dk__table-maintenance tbody tr {
+  background-color: transparent;
+  border-bottom: solid 1px #999;
+}
+
+table.dk__table-maintenance tbody tr.km-current {
+  background-color: var( --e-global-color-primary );
+}
+
+table.dk__table-maintenance td, table.dk__table-maintenance th {
+  padding: 12px;
+}
+
+.dc-loader-ajax {
+  width: fit-content;
+  margin: auto;
+}
+
+.dc-loader-ajax img {
+  width: 50px;
+}
