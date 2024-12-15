@@ -57,14 +57,8 @@ function registrar_nueva_moto($cf7)
       // Añadir la nueva moto al array
       $motosRegistradas[] = $nuevaMoto;
 
-      // Depuración: ver el array de motos después de agregar la nueva moto
-      error_log('Motos registradas después de agregar la nueva: ' . print_r($motosRegistradas, true));
-
       // Serializar el array y guardarlo usando update_user_meta
       update_user_meta($currentUserID, 'motos', $motosRegistradas);
-
-      // Depuración: ver si se ha actualizado correctamente
-      error_log('Moto guardada correctamente para el usuario ID: ' . $currentUserID);
     }
   }
 }
