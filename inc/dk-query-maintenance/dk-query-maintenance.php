@@ -100,10 +100,6 @@ function dk_query_maintenance_function()
   $html = '';
   $html .= "
     <div class='dk__container_moto-info'>
-      <h5 class='dk__moto-info'>Marca: <span>$marca</span></h5>
-      <h5 class='dk__moto-info'>Referencia: <span>$referencia</span></h5>
-      <h5 class='dk__moto-info'>Modelo: <span>$modelo</span></h5>
-      <h5 class='dk__moto-info'>Placa: <span>$placa</span></h5>
       <h5 class='dk__moto-info'>Selecciona una placa:</h5>
       <select name='placas' id='placas'>$options</select>
     </div>
@@ -163,13 +159,14 @@ if (!function_exists('dk_query_maintenance_ajax')) {
 
     $marca = $motoEncontrada['marca_de_moto'];
     $referencia = $motoEncontrada['referencia'];
+    $modelo = $motoEncontrada['modelo'];
 
     $fileName = normalizeMarca($marca); // Se normaliza la marca de la moto para un formato uniforme
     $csvFile = get_stylesheet_directory_uri() . '/csv/' . $fileName . '.csv'; // Obtiene el archivo csv correspondiente a la marca de la moto
 
     // Obtener todos los datos del CSV en un objeto
     $csvData = new CSVData($csvFile);
-
+    $html = '';
     // Se obtiene el número de fila donde se encontró el kilometraje indicado
     $rowDataFind = getCSVDataNumberRow($csvData, $referencia, $kilometer);
     $rowNumber = $rowDataFind[0];
@@ -218,7 +215,15 @@ if (!function_exists('dk_query_maintenance_ajax')) {
       $htmlRowTable .= $htmlDataRow;
       $htmlRowTable .= $htmlRowNext;
 
-      $html  = "<table border='1' class='dk__table-maintenance'>";
+      $html .= "
+          <div class='dk__container_moto-info'>
+            <h5 class='dk__moto-info'>Marca: <span>$marca</span></h5>
+            <h5 class='dk__moto-info'>Referencia: <span>$referencia</span></h5>
+            <h5 class='dk__moto-info'>Modelo: <span>$modelo</span></h5>
+            <h5 class='dk__moto-info'>Placa: <span>$placa</span></h5>
+          </div>
+        ";
+      $html .= "<table border='1' class='dk__table-maintenance'>";
       $html .= "<thead><tr><th>Kilometraje</th><th>Mantenimiento</th><th></th><th></th><th></th><th></th><th></th></tr></thead>";
       $html .= "<tbody'>";
       $html .= $htmlRowTable;
