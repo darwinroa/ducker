@@ -93,3 +93,7 @@ table.dk__table-maintenance td, table.dk__table-maintenance th {
 .dc-loader-ajax img {
   width: 50px;
 }
+
+.dk__not-found {
+  color: white;
+}

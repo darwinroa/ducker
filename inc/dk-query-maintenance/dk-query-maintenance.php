@@ -89,7 +89,7 @@ function dk_query_maintenance_function()
   $motosRegistradas = get_user_meta($currentUserID, 'motos', true);
 
   // Generar el select con las placas.
-  $options = "<option value=''>Seleccione una placa</option>";
+  $options = "<option value='' selected disabled>Seleccione una placa</option>";
   foreach ($motosRegistradas as $moto) {
     $placaMoto = htmlspecialchars($moto["placa"]);
     $options .= "<option value=' $placaMoto'>$placaMoto</option>";
@@ -138,6 +138,7 @@ if (!function_exists('dk_query_maintenance_ajax')) {
     check_ajax_referer('load_more_nonce', 'nonce');
 
     $kilometer = isset($_POST['kilometer']) ? sanitize_text_field($_POST['kilometer']) : ''; // Recibe el dato suministrado por el usuario
+    $placa = isset($_POST['placa']) ? sanitize_text_field($_POST['placa']) : ''; // Recibe el dato suministrado por el usuario
     // Verificar si el kilometraje es un número entero y multiplo de 500
     if (is_numeric($kilometer)) {
       $kilometer = (int)$kilometer;
@@ -147,11 +148,31 @@ if (!function_exists('dk_query_maintenance_ajax')) {
 
     // Obtiene datos de marca, referencia, placa y modelo de la moto suministrada por el usuario al momento de registrarse
     $currentUserID = get_current_user_id(); // ID del usuario actual 
-    $marca = get_the_author_meta("marca_moto", $currentUserID);
-    $referencia = get_the_author_meta('referencia', $currentUserID);
+    // $marca = get_the_author_meta("marca_moto", $currentUserID);
+    // $referencia = get_the_author_meta('referencia', $currentUserID);
+
+    // Obtener los valores ya registrados de "motos" en el usuario
+    $motosRegistradas = get_user_meta($currentUserID, 'motos', true);
+
+    $motoConsulta = array_filter($motosRegistradas, function ($moto) use ($placa) {
+        return $moto['placa'] === $placa;
+    });
+
+    // Verifica si se encontró algún resultado
+    if (!empty($motoConsulta)) {
+        $motoEncontrada = reset($motoConsulta); 
+    }
+
+    error_log('Motos encontrada: ' . print_r($motoEncontrada, true));
+
+
+    $marca = $motoEncontrada['marca_de_moto'];
+    $referencia = $motoEncontrada['referencia'];
 
     $fileName = normalizeMarca($marca); // Se normaliza la marca de la moto para un formato uniforme
     $csvFile = get_stylesheet_directory_uri() . '/csv/' . $fileName . '.csv'; // Obtiene el archivo csv correspondiente a la marca de la moto
+
+    error_log('File Name: ' . print_r($fileName, true));
 
     // Obtener todos los datos del CSV en un objeto
     $csvData = new CSVData($csvFile);
@@ -211,7 +232,7 @@ if (!function_exists('dk_query_maintenance_ajax')) {
       $html .= "</tbody>";
       $html .= "</table>";
     } else {
-      $html = "<div class'dk__not-found'>Moto no encontrada en la base de datos.</div>";
+      $html = "<div class='dk__not-found'>Moto no encontrada en la base de datos.</div>";
     }
 
     wp_send_json_success($html);
@@ -298,9 +319,15 @@ function getCSVDataNumberRow($csvData, $referencia, $kilometer)
  * Valida si se ha encontrado el kilometraje introducido por el usuario 
  * para la marca y referencia de la moto registrada por el usuario
  */
+// function is_moto($data, $referencia, $kilometer)
+// {
+//   return ($data['REFERENCIA'] == $referencia) && $data['KILOMETRAJE'] == $kilometer;
+// }
+
 function is_moto($data, $referencia, $kilometer)
 {
-  return ($data['REFERENCIA'] == $referencia) && $data['KILOMETRAJE'] == $kilometer;
+    // Convertir ambas referencias a minúsculas antes de comparar
+    return (strtolower($data['REFERENCIA']) === strtolower($referencia)) && $data['KILOMETRAJE'] == $kilometer;
 }
 
 /**

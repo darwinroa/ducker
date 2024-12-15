@@ -1,13 +1,15 @@
 jQuery(document).ready(function($) {
   $('#query-maintenance').on('click', function() {
     const kilometer = $('#kilometer').val();
+    const placa = $('#placas').val();
     $.ajax({
       url: wp_ajax.ajax_url,
       type: 'post',
       data: {
         action: 'dk_query_maintenance_ajax',
         nonce: wp_ajax.nonce,
-        kilometer
+        kilometer,
+        placa
       },
       beforeSend: function(){
         const loaderUrl = wp_ajax.theme_directory_uri + '/inc/img/gear-spinner.svg';
