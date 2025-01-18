@@ -15,9 +15,13 @@ function hub_child_enqueue_styles()
     );
 }
 
+//////////////////////////////////////////////////////////
+///////////////////// CODE SNIPPETS //////////////////////
+//////////////////////////////////////////////////////////
 require 'inc/dk-query-maintenance/dk-query-maintenance.php'; // Consulta sobre el mantenimiento
 require "inc/dk-user-register/dk_user_register.php"; // Handler user register
 require "inc/dk-moto-register/dk_moto_register.php"; // Handler moto register
+require "inc/mdw-lists-users-csv/mdw_lists_users_csv.php"; // Handler lists users csv
 
 
 // Shortcode para obtener solo el ID del usuario actual
