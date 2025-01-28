@@ -22,6 +22,7 @@ require 'inc/dk-query-maintenance/dk-query-maintenance.php'; // Consulta sobre e
 require "inc/dk-user-register/dk_user_register.php"; // Handler user register
 require "inc/dk-moto-register/dk_moto_register.php"; // Handler moto register
 require "inc/mdw-lists-users-csv/mdw_lists_users_csv.php"; // Handler lists users csv
+require "inc/mdw-handler-user-moto/mdw_handler_user_moto.php"; // Handler user moto
 
 
 // Shortcode para obtener solo el ID del usuario actual
