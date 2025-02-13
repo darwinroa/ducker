@@ -1,0 +1,36 @@
+.mdw__title_table {
+  font-family: "Amatic SC", Sans-serif;
+  font-size: 50px;
+  font-weight: 700;
+  line-height: 1.3em;
+  letter-spacing: 0px;
+}
+
+.mdw__handler_moto-table {
+  thead {
+    tr {
+      th {
+        &:first-child {
+          padding-left: 1rem;
+        }
+      }
+    }
+  }
+
+  .mdw-eliminar-moto {
+    border: 0;
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
+
+    i {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &::before {
+      font-size: 25px;
+    }
+    }
+  }
+}
