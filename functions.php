@@ -36,3 +36,15 @@ function user_id_shortcode($atts)
     return ''; // Si no hay usuario conectado, devuelve vacío
 }
 add_shortcode('user_id', 'user_id_shortcode');
+
+
+// Shortcode para obtener solo el Correo Electrónico de un usuario específico
+function user_email_shortcode()
+{
+    $author_email = get_the_author_meta('user_email');
+
+    return esc_html($author_email);
+
+}
+
+add_shortcode('user_email', 'user_email_shortcode');

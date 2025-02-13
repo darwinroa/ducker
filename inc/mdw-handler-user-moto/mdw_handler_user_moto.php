@@ -10,6 +10,9 @@ function mdw_handler_user_moto_function() {
 
   $current_user = is_author() ? get_the_author_meta('ID') : get_current_user_id();
 
+  //Carga CSS
+  wp_enqueue_style('handler-user-moto', get_stylesheet_directory_uri() . '/inc/mdw-handler-user-moto/handler_user_moto.css');
+
   //Carga JS
   wp_enqueue_script('handler-user-moto', get_stylesheet_directory_uri() . '/inc/mdw-handler-user-moto/handler_user_moto.js', array('jquery'), '1.0', true);
 
@@ -21,7 +24,7 @@ function mdw_handler_user_moto_function() {
   
   $motos_registradas = get_user_meta($current_user, 'motos', true);
   if ($motos_registradas && is_array($motos_registradas) && count($motos_registradas) > 0) {
-    $html .= '<h1>Motos Registradas</h1>';
+    $html .= '<h2 class="mdw__title_table">Motos Registradas</h2>';
 
     foreach ($motos_registradas as $moto) {
       $placa = $moto['placa'];
@@ -45,7 +48,7 @@ function mdw_handler_user_moto_function() {
     }
   
     $html .= "
-      <table>
+      <table class='mdw__handler_moto-table'>
         <thead>
           <tr>
             <th>[X]</th>
