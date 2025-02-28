@@ -112,7 +112,7 @@ function dk_query_maintenance_function()
       <div class='dk__consulta_moto-form'>
         <label for='kilometer'>Ingrese Kilometraje de su moto:</label>
         <input type='text' id='kilometer' name='kilometer' required>
-        <button type='button' id='query-maintenance'>Consultar</button>
+        <button type='button' id='query-maintenance' disabled>Consultar</button>
       </div>
     </div>
     <div id='dk_result' class='dk_result'></div>

@@ -47,6 +47,11 @@
   transition: all .2s ease-in;
 }
 
+.dk__container_consulta-moto .dk__consulta_moto-form button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .dk__container_consulta-moto .dk__consulta_moto-form button:hover {
   background-color: transparent;
   color: var(--e-global-color-text);

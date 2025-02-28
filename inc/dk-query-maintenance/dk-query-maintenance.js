@@ -1,5 +1,34 @@
 jQuery(document).ready(function($) {
-  $('#query-maintenance').on('click', function() {
+  const mdwButton = $('#query-maintenance');
+  mdwButton.on('click', function() {
+    dk_query_maintenance_ajax();
+  });
+  
+  $('#placas').on('change', function() {
+    mdwValidarDatosConsulta();
+  });
+
+  $('#kilometer').on('change', function() {
+    mdwValidarDatosConsulta();
+  });
+
+  /**
+   * Valida que los datos de la consulta estén completos
+   */
+  function mdwValidarDatosConsulta() {
+    const kilometer = $('#kilometer').val();
+    const placa = $('#placas').val();
+    if (kilometer && placa) {
+      mdwButton.prop('disabled', false);
+    }else {
+      mdwButton.prop('disabled', true);
+    }
+  }
+
+  /**
+   * Realiza la consulta de mantenimiento
+   */
+  function dk_query_maintenance_ajax() {
     const kilometer = $('#kilometer').val();
     const placa = $('#placas').val();
     $.ajax({
@@ -23,5 +52,5 @@ jQuery(document).ready(function($) {
         }
       }
     })
-  });
+  }
 });
