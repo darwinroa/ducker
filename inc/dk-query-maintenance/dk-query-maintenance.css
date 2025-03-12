@@ -2,6 +2,19 @@
 .dk__container_consulta-moto {
   max-width: 800px;
   margin: auto;
+  margin-bottom: 2rem;
+}
+
+.dk__container_moto-info #placas {
+  background-color: transparent;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: 2px solid;
+  border-radius: 5px;
+}
+
+.dk__container_moto-info #placas option {
+  color: black;
 }
 
 .dk__container_moto-info .dk__moto-info {
