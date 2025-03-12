@@ -42,8 +42,15 @@ function registrar_nueva_moto($cf7)
 
       // Asegurarnos de que $motosRegistradas sea un array
       if (!is_array($motosRegistradas)) {
-        // Si no es un array (puede ser una cadena serializada o vacío), lo inicializamos como array vacío
         $motosRegistradas = [];
+      }
+
+      // Verificar si la placa ya está registrada
+      foreach ($motosRegistradas as $moto) {
+        if ($moto['placa'] == $placa) {
+          error_log('La moto con placa ' . $placa . ' ya se encuentra registrada, registra otra moto.');
+          return;
+        }
       }
 
       // Crear un nuevo array con los datos de la moto
@@ -62,3 +69,61 @@ function registrar_nueva_moto($cf7)
     }
   }
 }
+
+
+
+/**
+ * Validar que la placa de la moto no esté registrada
+ */
+add_filter('wpcf7_validate_text*', 'validar_placa_moto', 10, 2);
+add_filter('wpcf7_validate_text', 'validar_placa_moto', 10, 2);
+
+function validar_placa_moto($result, $tag)
+{
+    // Verificamos que el campo validado sea 'placa'
+    if ($tag['name'] !== 'placa') {
+        return $result;
+    }
+
+    // Obtenemos los datos enviados en el formulario
+    $submission = WPCF7_Submission::get_instance();
+    if (!$submission) {
+        return $result;
+    }
+
+    $posted_data = $submission->get_posted_data();
+    
+    $placa = isset($posted_data['placa']) ? sanitize_text_field($posted_data['placa']) : '';
+    $currentUserID = isset($posted_data['user_id']) ? intval($posted_data['user_id']) : 0;
+
+    // Si no hay un usuario válido, mostramos un error
+    if ($currentUserID === 0) {
+        $result->invalidate($tag, 'Error: Usuario no válido.');
+        return $result;
+    }
+
+    // Obtenemos los datos del usuario en WordPress
+    $user = get_user_by('id', $currentUserID);
+    if (!$user) {
+        $result->invalidate($tag, 'Error: Usuario no encontrado.');
+        return $result;
+    }
+
+    // Recuperamos las motos registradas
+    $motosRegistradas = get_user_meta($currentUserID, 'motos', true);
+    if (!is_array($motosRegistradas)) {
+        $motosRegistradas = [];
+    }
+
+    // Verificamos si la placa ya está registrada
+    foreach ($motosRegistradas as $moto) {
+        if ($moto['placa'] === $placa) {
+            $result->invalidate($tag, 'Esta placa ya está registrada. Intente con otra.');
+            return $result;
+        }
+    }
+
+    return $result;
+}
+
+
