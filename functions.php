@@ -60,7 +60,17 @@ function agregar_nueva_pestana_mi_cuenta( $items ) {
 
     // Agregar nueva pestaña
     $items['consulta-mantenimiento'] = __('Mantenimiento', 'woocommerce');
-    return $items;
+
+    // Reordenar los elementos
+    $items_ordenados = array(
+        'dashboard'                 => __('Pannel de Administración', 'woocommerce'),
+        'edit-account'              => __('Detalles de la cuenta', 'woocommerce'),
+        'edit-address'              => __('Direcciones', 'woocommerce'),
+        'consulta-mantenimiento'    => __('Mantenimiento', 'woocommerce'),
+        'customer-logout'           => __('Cerrar sesión', 'woocommerce'),
+    );
+
+    return $items_ordenados;
 }
 add_filter( 'woocommerce_account_menu_items', 'agregar_nueva_pestana_mi_cuenta' );
 
