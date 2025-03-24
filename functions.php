@@ -48,3 +48,30 @@ function user_email_shortcode()
 }
 
 add_shortcode('user_email', 'user_email_shortcode');
+
+/**
+ * Personaliza el dashboard de la página de "Mi Cuenta"
+ */
+// Agregar nueva pestaña al menú de "Mi Cuenta"
+function agregar_nueva_pestana_mi_cuenta( $items ) {
+    // Eliminar pestañas no deseadas
+    unset( $items['orders'] );     // Elimina la pestaña "Pedidos"
+    unset( $items['downloads'] );  // Elimina la pestaña "Descargas"
+
+    // Agregar nueva pestaña
+    $items['consulta-mantenimiento'] = __('Mantenimiento', 'woocommerce');
+    return $items;
+}
+add_filter( 'woocommerce_account_menu_items', 'agregar_nueva_pestana_mi_cuenta' );
+
+// Agregar el endpoint para la nueva pestaña
+function registrar_endpoint_nueva_pestana() {
+    add_rewrite_endpoint( 'consulta-mantenimiento', EP_ROOT | EP_PAGES );
+}
+add_action( 'init', 'registrar_endpoint_nueva_pestana' );
+
+// Mostrar contenido de la nueva pestaña
+function contenido_nueva_pestana() {
+    echo do_shortcode('[consulta_mantenimiento]');
+}
+add_action( 'woocommerce_account_consulta-mantenimiento_endpoint', 'contenido_nueva_pestana' );
