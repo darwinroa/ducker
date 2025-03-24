@@ -81,10 +81,6 @@ function dk_query_maintenance_function()
   ));
   // Obtiene datos de marca, referencia, placa y modelo de la moto suministrada por el usuario al momento de registrarse
   $currentUserID = get_current_user_id(); // ID del usuario actual 
-  $marca = get_the_author_meta("marca_moto", $currentUserID);
-  $referencia = get_the_author_meta('referencia', $currentUserID);
-  $placa = get_the_author_meta('placa', $currentUserID);
-  $modelo = get_the_author_meta('modelo', $currentUserID);
 
   $motosRegistradas = get_user_meta($currentUserID, 'motos', true);
 
@@ -223,12 +219,12 @@ if (!function_exists('dk_query_maintenance_ajax')) {
             <h5 class='dk__moto-info'>Placa: <span>$placa</span></h5>
           </div>
         ";
-      $html .= "<table border='1' class='dk__table-maintenance'>";
+      $html .= "<div class='mdw__table_maintenance-result'><table border='1' class='dk__table-maintenance'>";
       $html .= "<thead><tr><th>Kilometraje</th><th>Mantenimiento</th><th></th><th></th><th></th><th></th><th></th></tr></thead>";
       $html .= "<tbody'>";
       $html .= $htmlRowTable;
       $html .= "</tbody>";
-      $html .= "</table>";
+      $html .= "</table></div>";
     } else {
       $html = "<div class='dk__not-found'>Moto no encontrada en la base de datos.</div>";
     }

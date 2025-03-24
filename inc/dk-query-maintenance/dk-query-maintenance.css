@@ -1,3 +1,42 @@
+#mdw_my_account {
+  .dk__container_moto-info {
+    #placas {
+      color: black;
+    }
+
+    .dk__moto-info {
+      color: black;
+    }
+  }
+
+  .dk__not-found {
+    color: black;
+  }
+
+  .dk__container_consulta-moto {
+    .dk__consulta_moto-description {
+      color: black;
+      margin-bottom: 2rem;
+    }
+
+    .dk__consulta_moto-form {
+      color: black;
+    }
+  }
+
+  .mdw__table_maintenance-result {
+    overflow-x: auto;
+
+    .dk__table-maintenance {
+      min-width: 1200px;
+    }
+  }
+
+  table.dk__table-maintenance td, table.dk__table-maintenance th {
+    padding: 12px;
+  }
+}
+
 .dk__container_moto-info,
 .dk__container_consulta-moto {
   max-width: 800px;
