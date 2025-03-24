@@ -60,6 +60,8 @@ function agregar_nueva_pestana_mi_cuenta( $items ) {
 
     // Agregar nueva pestaña
     $items['consulta-mantenimiento'] = __('Mantenimiento', 'woocommerce');
+    $items['mis-motos'] = __('Mis motos', 'woocommerce');
+    $items['registrar-moto'] = __('Registrar moto', 'woocommerce');
 
     // Reordenar los elementos
     $items_ordenados = array(
@@ -67,6 +69,8 @@ function agregar_nueva_pestana_mi_cuenta( $items ) {
         'edit-account'              => __('Detalles de la cuenta', 'woocommerce'),
         'edit-address'              => __('Direcciones', 'woocommerce'),
         'consulta-mantenimiento'    => __('Mantenimiento', 'woocommerce'),
+        'mis-motos'                 => __('Mis motos', 'woocommerce'),
+        'registrar-moto'            => __('Registrar moto', 'woocommerce'),
         'customer-logout'           => __('Cerrar sesión', 'woocommerce'),
     );
 
@@ -74,14 +78,28 @@ function agregar_nueva_pestana_mi_cuenta( $items ) {
 }
 add_filter( 'woocommerce_account_menu_items', 'agregar_nueva_pestana_mi_cuenta' );
 
-// Agregar el endpoint para la nueva pestaña
+// Agregar el endpoint para las nuevas pestañas
 function registrar_endpoint_nueva_pestana() {
     add_rewrite_endpoint( 'consulta-mantenimiento', EP_ROOT | EP_PAGES );
+    add_rewrite_endpoint( 'mis-motos', EP_ROOT | EP_PAGES );
+    add_rewrite_endpoint( 'registrar-moto', EP_ROOT | EP_PAGES );
 }
 add_action( 'init', 'registrar_endpoint_nueva_pestana' );
 
-// Mostrar contenido de la nueva pestaña
-function contenido_nueva_pestana() {
+// Mostrar contenido de las nuevas pestañas
+function mdw_consulta_mantenimiento_content() {
     echo do_shortcode('[consulta_mantenimiento]');
 }
-add_action( 'woocommerce_account_consulta-mantenimiento_endpoint', 'contenido_nueva_pestana' );
+add_action( 'woocommerce_account_consulta-mantenimiento_endpoint', 'mdw_consulta_mantenimiento_content' );
+
+// Mostrar contenido de las nuevas pestañas
+function mdw_listar_motos_content() {
+    echo do_shortcode('[mdw_handler_user_moto]');
+}
+add_action( 'woocommerce_account_mis-motos_endpoint', 'mdw_listar_motos_content' );
+
+// Mostrar contenido de las nuevas pestañas
+function mdw_registrar_moto_content() {
+    echo do_shortcode('[contact-form-7 id="3cba2ff" title="Registrar Moto"]');
+}
+add_action( 'woocommerce_account_registrar-moto_endpoint', 'mdw_registrar_moto_content' );
