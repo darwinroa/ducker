@@ -9,3 +9,48 @@ This is the child theme for Hub theme, generated with Generate Child Theme plugi
 
 (optional values you can add: Theme URI, Author URI, License, License URI, Tags, Text Domain)
 */
+
+/* Agrega estilos para la página de mi cuenta */
+#mdw_my_account {
+    .wpcf7-form {
+      label {
+        color: var(--forms-labels-color, #69727d);
+        margin-bottom: var(--forms-label-spacing, 0);
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 2;
+        width: 100%;
+      }
+      input[type="text"]  {
+        color: var(--forms-fields-normal-color, #69727d);
+        border-radius: var(--forms-fields-border-radius, 0);
+        padding: var(--forms-fields-padding, 16px);
+        background: #f9fafa;
+        border: none;
+        font-size: 14px;
+        height: 45px;
+        align-items: center;
+        width: 100%;
+      }
+      input[type="submit"] {
+        background-color: var(--e-global-color-text);
+        border: none;
+        color: var(--forms-buttons-normal-text-color, #fff);
+        border-radius: var(--forms-buttons-border-radius, 3px);
+        padding: var(--forms-buttons-padding, 12px 32px);
+        margin-top: 20px;
+
+        &:hover {
+          background-color: var( --e-global-color-primary );
+          color: var(--forms-buttons-hover-text-color, #fff);
+          transition-duration: var(--forms-buttons-hover-transition-duration, .3s);
+        }
+      }
+      .ui-selectmenu-button {
+        color: var(--forms-fields-normal-color, #69727d);
+        border-radius: var(--forms-fields-border-radius, 0);
+        padding: var(--forms-fields-padding, 16px);
+        background: #f9fafa;
+      }
+    }
+}
