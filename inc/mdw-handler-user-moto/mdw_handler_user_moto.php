@@ -24,6 +24,9 @@ function mdw_handler_user_moto_function() {
   
   $motos_registradas = get_user_meta($current_user, 'motos', true);
   if ($motos_registradas && is_array($motos_registradas) && count($motos_registradas) > 0) {
+
+    ob_start();
+
     $html .= '<h2 class="mdw__title_table">Motos Registradas</h2>';
 
     foreach ($motos_registradas as $moto) {
@@ -64,8 +67,8 @@ function mdw_handler_user_moto_function() {
       </table>
     ";   
   }
-  ob_start();
 
+  ob_get_clean();
   return $html;
 }
 
@@ -75,12 +78,8 @@ function eliminar_moto()
     $current_user = $_POST['current_user'];
     $placa = $_POST['placa'];
     $motos_registradas = get_user_meta($current_user, 'motos', true);
-    $motos_filtradas = array_filter($motos_registradas, function ($moto) use ($placa) {
-      return $moto['placa'] != $placa;
-    });
-
-      $motos_filtradas = array_values(array_filter($motos_registradas, function ($moto) use ($placa) {
-      return $moto['placa'] != $placa;
+    $motos_filtradas = array_values(array_filter($motos_registradas, function ($moto) use ($placa) {
+    return $moto['placa'] != $placa;
     }));
 
 
