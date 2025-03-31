@@ -80,6 +80,7 @@ add_filter('wpcf7_validate_text', 'validar_placa_moto', 10, 2);
 
 function validar_placa_moto($result, $tag)
 {
+  if ( is_user_logged_in() ){
     // Verificamos que el campo validado sea 'placa'
     if ($tag['name'] !== 'placa') {
         return $result;
@@ -123,6 +124,7 @@ function validar_placa_moto($result, $tag)
         }
     }
 
+  }
     return $result;
 }
 
