@@ -65,12 +65,10 @@ function agregar_nueva_pestana_mi_cuenta( $items ) {
 
     // Reordenar los elementos
     $items_ordenados = array(
-        'dashboard'                 => __('Pannel de Administración', 'woocommerce'),
-        'edit-account'              => __('Detalles de la cuenta', 'woocommerce'),
-        'edit-address'              => __('Direcciones', 'woocommerce'),
         'consulta-mantenimiento'    => __('Mantenimiento', 'woocommerce'),
         'mis-motos'                 => __('Mis motos', 'woocommerce'),
         'registrar-moto'            => __('Registrar moto', 'woocommerce'),
+        'edit-account'              => __('Detalles de la cuenta', 'woocommerce'),
         'customer-logout'           => __('Cerrar sesión', 'woocommerce'),
     );
 
