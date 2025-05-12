@@ -101,3 +101,17 @@ function mdw_registrar_moto_content() {
     echo do_shortcode('[contact-form-7 id="3cba2ff" title="Registrar Moto"]');
 }
 add_action( 'woocommerce_account_registrar-moto_endpoint', 'mdw_registrar_moto_content' );
+
+// Redirigir a la página de consulta de mantenimiento después de iniciar sesión
+function custom_woocommerce_login_redirect($redirect, $user) {
+    // Asegúrate de que el usuario esté autenticado
+    if (isset($user->ID)) {
+        // Cambia la URL según sea necesario
+        return site_url('/mi-cuenta/consulta-mantenimiento/');
+    }
+
+    // Redirección por defecto si no se cumple la condición
+    return $redirect;
+}
+
+add_filter('woocommerce_login_redirect', 'custom_woocommerce_login_redirect', 10, 2);
