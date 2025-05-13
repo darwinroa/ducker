@@ -70,25 +70,27 @@ function mdw_lists_users_csv_function()
         // Muestra un enlace para descargar el archivo CSV
         $html .= '<a href="' . get_stylesheet_directory_uri() . '/inc/mdw-lists-users-csv/users.csv" download class="mdw_download">Descargar lista de usuarios</a>';
         $html .= "
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Género</th>
-                        <th>Fecha Nacimiento</th>
-                        <th>Correo electrónico</th>
-                        <th>Teléfono</th>
-                        <th>Marca de Moto</th>
-                        <th>Referencia</th>
-                        <th>Modelo</th>
-                        <th>Placa</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    $htmlTBody
-                </tbody>
-            </table>
+            <div class='mdw__table_list-motos'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Género</th>
+                            <th>Fecha Nacimiento</th>
+                            <th>Correo electrónico</th>
+                            <th>Teléfono</th>
+                            <th>Marca de Moto</th>
+                            <th>Referencia</th>
+                            <th>Modelo</th>
+                            <th>Placa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        $htmlTBody
+                    </tbody>
+                </table>
+            </div>
         ";        
     } else {
         // Si no hay usuario conectado, muestra un mensaje de error
