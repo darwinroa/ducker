@@ -7,6 +7,22 @@ function mdw_handler_user_moto_function() {
 
   $html = '';
   $htmlTBody = '';
+  $htmlPopUp = '
+    <div id="popup-confirmacion" class="popup-confirmacion">
+      <div class="popup-confirmacion__content">
+        <p class="popup-confirmacion__message">
+          ¿Estás seguro de que deseas eliminar esta moto?
+        </p>
+        <div class="popup-confirmacion__buttons">
+          <button id="btn-confirmar-eliminar" class="popup-confirmacion__button popup-confirmacion__button--confirm">
+            Sí, eliminar
+          </button>
+          <button id="btn-cancelar-eliminar" class="popup-confirmacion__button popup-confirmacion__button--cancel">
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>';
 
   $current_user = is_author() ? get_the_author_meta('ID') : get_current_user_id();
 
@@ -65,6 +81,7 @@ function mdw_handler_user_moto_function() {
           $htmlTBody
         </tbody>
       </table>
+      $htmlPopUp
     ";   
   }
 
@@ -90,3 +107,6 @@ function eliminar_moto()
 }
 add_action('wp_ajax_eliminar_moto', 'eliminar_moto');
 add_action('wp_ajax_nopriv_eliminar_moto', 'eliminar_moto');
+
+
+
