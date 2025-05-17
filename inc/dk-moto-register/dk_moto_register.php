@@ -4,7 +4,7 @@ add_action('wpcf7_before_send_mail', 'registrar_nueva_moto');
 
 function registrar_nueva_moto($cf7)
 {
-  if ($cf7->id() == '4430') { // Verificar que sea el formulario correcto
+  if ($cf7->id() == '4505') { // Verificar que sea el formulario correcto
     $submission = WPCF7_Submission::get_instance();
 
     if ($submission) {
