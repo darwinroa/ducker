@@ -54,3 +54,8 @@ This is the child theme for Hub theme, generated with Generate Child Theme plugi
       }
     }
 }
+
+.woocommerce-account.logged-in #lqd-site-content, .woocommerce-order-received #lqd-site-content {
+	padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
