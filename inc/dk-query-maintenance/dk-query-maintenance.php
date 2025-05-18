@@ -204,7 +204,10 @@ if (!function_exists('dk_query_maintenance_ajax')) {
       // Valida si el km introducido por el usuario tiene mantenimiento programado o no
       $htmlDataRow = $hasMaintenance ?
         rowDataMaintenanceHTML($rowData, true) :
-        "<tr class='km-current'><td>$kilometer</td><td><b>Sin mantenimiento</b></td></tr>";
+        "<div class='dk__maintenance-row mdw__no-maintenance'>
+          <div class='dk__maintenance-col'>$kilometer</div>
+          <div class='dk__nomaintenance-col'><b>Sin mantenimiento</b></div>
+        </div>";
 
       // Construlle el html para la tabla que se imprime en pantalla
       $htmlRowTable = $htmlRowPrev;
@@ -219,12 +222,18 @@ if (!function_exists('dk_query_maintenance_ajax')) {
             <h5 class='dk__moto-info'>Placa: <span>$placa</span></h5>
           </div>
         ";
-      $html .= "<div class='mdw__table_maintenance-result'><table border='1' class='dk__table-maintenance'>";
-      $html .= "<thead><tr><th>Kilometraje</th><th>Mantenimiento</th><th></th><th></th><th></th><th></th><th></th></tr></thead>";
-      $html .= "<tbody'>";
+      $html .= "<div class='mdw__div_maintenance-result'>";
+      $html .= "
+        <div class='dk__maintenance-header'>
+          <div class='dk__maintenance-col mdw__kilometer'>Kilometraje</div>
+          <div class='dk__maintenance-col mdw__maintenance'>Mantenimiento</div>
+        </div>
+      ";
+
+      $html .= "<div class='dk__maintenance-body'>";
       $html .= $htmlRowTable;
-      $html .= "</tbody>";
-      $html .= "</table></div>";
+      $html .= "</div>";
+      $html .= "</div>";
     } else {
       $html = "<div class='dk__not-found'>Moto no encontrada en la base de datos.</div>";
     }
@@ -345,12 +354,17 @@ function rowDataMaintenanceHTML($rowDataMaintenance, $isCurrent = false)
 {
   $col = 0;
   $classCurrent = $isCurrent ? 'km-current' : '';
-  $html = "<tr class='$classCurrent'>";
+  $html = "<div class='dk__maintenance-row $classCurrent'>";
   foreach ($rowDataMaintenance as $cell) {
-    if ($col >= 4) $html .= "<td>" . htmlspecialchars($cell) . "</td>";
+    // Convertir a UTF-8 si no lo está
+    $cell = mb_convert_encoding($cell, 'UTF-8', 'auto');
+
+    if ($col >= 4) {
+      $html .= !empty($cell) ? "<div class='dk__maintenance-col'>" . $cell . "</div>" : null;
+    }
     $col++;
   }
-  $html .= "</tr>";
+  $html .= "</div>";
   return $html;
 }
 

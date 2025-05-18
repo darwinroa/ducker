@@ -117,31 +117,6 @@
   background-color: #f7f7f7;
 }
 
-table.dk__table-maintenance thead {
-  background-color: var( --e-global-color-primary );
-  font-family: "Amatic SC", Sans-serif;
-  font-size: 25px;
-  font-weight: bold;
-}
-
-table.dk__table-maintenance thead th{
-	font-weight: 900;
-	font-size: 30px;
-}
-
-table.dk__table-maintenance tbody tr {
-  background-color: transparent;
-  border-bottom: solid 1px #999;
-}
-
-table.dk__table-maintenance tbody tr.km-current {
-  background-color: var( --e-global-color-primary );
-}
-
-table.dk__table-maintenance td, table.dk__table-maintenance th {
-  padding: 12px;
-}
-
 .dc-loader-ajax {
   width: fit-content;
   margin: auto;
@@ -153,4 +128,66 @@ table.dk__table-maintenance td, table.dk__table-maintenance th {
 
 .dk__not-found {
   color: white;
+}
+
+.dk__maintenance-header {
+  background-color: var(--e-global-color-primary);
+  font-family: "Amatic SC", Sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+  display: flex;
+
+  .mdw__kilometer {
+    max-width: 130px;    
+  }
+
+  .mdw__maintenance {
+    width: 100%;
+    text-align: center;
+  }
+
+  .dk__maintenance-col {
+    font-weight: 900;
+    font-size: 30px;
+    padding: 12px;
+    flex: 1;
+  }
+}
+
+.dk__maintenance-body {
+  overflow-x: auto;
+
+  .dk__maintenance-col {
+    min-width: 130px;
+    max-width: 130px;
+  }
+
+  .dk__maintenance-row {
+    display: flex;
+    background-color: transparent;
+    align-items: center;
+  }
+
+  .dk__maintenance-row.km-current {
+    background-color: var(--e-global-color-primary);
+  }
+
+  .mdw__no-maintenance {
+    .dk__nomaintenance-col {
+      width: 100%;
+    }
+  }
+}
+
+
+/* Contenedor general */
+.mdw__div_maintenance-result {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Estilo general de cada "celda" */
+.dk__maintenance-col {
+  padding: 12px;
+  flex: 1;
 }
