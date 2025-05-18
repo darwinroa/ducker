@@ -357,7 +357,7 @@ function rowDataMaintenanceHTML($rowDataMaintenance, $isCurrent = false)
   $html = "<div class='dk__maintenance-row $classCurrent'>";
   foreach ($rowDataMaintenance as $cell) {
     // Convertir a UTF-8 si no lo está
-    $cell = mb_convert_encoding($cell, 'UTF-8', 'auto');
+    $cell = mb_convert_encoding($cell, 'UTF-8', 'ISO-8859-1');
 
     if ($col >= 4) {
       $html .= !empty($cell) ? "<div class='dk__maintenance-col'>" . $cell . "</div>" : null;
