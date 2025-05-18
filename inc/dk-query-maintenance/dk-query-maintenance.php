@@ -32,7 +32,7 @@ class CSVData
   {
     foreach ($header as $index => $name) {
       if (empty($name)) {
-        $header[$index] = 'Cambio_' . $index - 5;
+        $header[$index] = 'Cambio_' . ($index - 5);
       }
     }
     return $header;
