@@ -136,6 +136,8 @@
   font-size: 25px;
   font-weight: bold;
   display: flex;
+  position: sticky;
+  left: 0;
 
   .mdw__kilometer {
     max-width: 130px;    
@@ -156,6 +158,7 @@
 
 .dk__maintenance-body {
   overflow-x: auto;
+  width: fit-content;
 
   .dk__maintenance-col {
     min-width: 130px;
@@ -173,6 +176,8 @@
   }
 
   .mdw__no-maintenance {
+    background-color: #EEE;
+
     .dk__nomaintenance-col {
       width: 100%;
     }
