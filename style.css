@@ -59,3 +59,18 @@ This is the child theme for Hub theme, generated with Generate Child Theme plugi
 	padding-top: 0 !important;
     padding-bottom: 0 !important;
 }
+
+.header {
+  li.onlyMobile {
+      a {
+        gap: 8px;
+      }
+      @media (max-width: 1023px) {
+          display: block !important;        
+      }
+
+      @media (min-width: 1024px) {
+          display: none !important;        
+      }
+  }
+}
