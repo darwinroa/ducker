@@ -11,17 +11,14 @@ function registrar_nuevo_usuario($cf7)
       $posted_data = $submission->get_posted_data();
 
       // Datos del usuario
-      $fullName   = isset($posted_data['nombre-apellido']) ? $posted_data['nombre-apellido'] : '';
+      $firstName   = isset($posted_data['nombres']) ? $posted_data['nombres'] : '';
+      $lastName   = isset($posted_data['apellidos']) ? $posted_data['apellidos'] : '';
       $email      = isset($posted_data['your-email'])  ? $posted_data['your-email'] : '';
       $genero     = isset($posted_data['genero'])  ? $posted_data['genero'] : '';
       // Datos de la moto
       $marca      = isset($posted_data['marca'])  ? $posted_data['marca']   : '';
       $placa      = isset($posted_data['placa'])  ? $posted_data['placa']   : '';
       $modelo     = isset($posted_data['modelo']) ? $posted_data['modelo']  : '';
-
-      $fullNameArray = explode(' ', $fullName);
-      $firstName  = $fullNameArray[0];
-      $lastName   = $fullNameArray[1];
 
       // Decodificar el string JSON y obtener el primer elemento del array
       $genero_clean     = $genero[0];
