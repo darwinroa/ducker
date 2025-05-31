@@ -74,3 +74,10 @@ This is the child theme for Hub theme, generated with Generate Child Theme plugi
       }
   }
 }
+
+.cupones-template-default {
+  #lqd-contents-wrap {
+    width: 100%;
+    padding: 0;
+  }
+}
