@@ -23,6 +23,7 @@ require "inc/dk-user-register/dk_user_register.php"; // Handler user register
 require "inc/dk-moto-register/dk_moto_register.php"; // Handler moto register
 require "inc/mdw-lists-users-csv/mdw_lists_users_csv.php"; // Handler lists users csv
 require "inc/mdw-handler-user-moto/mdw_handler_user_moto.php"; // Handler user moto
+require "inc/mdw-cupones/mdw_cupones_query.php"; // Cupones Query
 
 
 // Shortcode para obtener solo el ID del usuario actual
@@ -115,3 +116,28 @@ function custom_woocommerce_login_redirect($redirect, $user) {
 }
 
 add_filter('woocommerce_login_redirect', 'custom_woocommerce_login_redirect', 10, 2);
+
+/**
+ * Ejecuta una WP_Query cacheada usando transients.
+ *
+ * @param string $cache_key       Nombre único del caché (ej: 'productos_destacados').
+ * @param array  $query_args      Argumentos de WP_Query.
+ * @param int    $cache_duration  Duración del caché en segundos (por defecto: 1 hora).
+ *
+ * @return WP_Query
+ */
+function get_cached_query($cache_key, $query_args = [], $cache_duration = 3600) {
+    $cached_query = get_transient($cache_key);
+
+    if ($cached_query && $cached_query instanceof WP_Query) {
+        return $cached_query;
+    }
+
+    // Ejecuta la consulta
+    $query = new WP_Query($query_args);
+
+    // Guarda el resultado en caché
+    set_transient($cache_key, $query, $cache_duration);
+
+    return $query;
+}
