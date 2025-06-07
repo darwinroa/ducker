@@ -8,7 +8,8 @@
  */
 add_shortcode('mdw_cupones_query', 'mdw_cupones_query_shortcode');
 function mdw_cupones_query_shortcode() {
-
+  wp_enqueue_style('mdw-cupones-style', get_stylesheet_directory_uri() . '/inc/mdw-cupones/style.css');
+  ob_start();
   $html = '';
 
   $args = array(
@@ -36,6 +37,7 @@ function mdw_cupones_query_shortcode() {
   } else {
     $html .= '<p>No se encontraron cupones.</p>';
   }
-
+  wp_reset_postdata();
+  ob_get_clean();
   return $html;
 }

@@ -1,0 +1,19 @@
+.mdw__cupones_container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+
+  .elementor {
+    & > .elementor-element {
+      height: 100%;
+    }
+
+    &:hover {
+      .elementor-widget-image {
+        img {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
