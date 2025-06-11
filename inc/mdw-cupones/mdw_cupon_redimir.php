@@ -8,7 +8,6 @@ function mdw_redimir_cupon_shortcode() {
 
   // Obtener los cupones que el usuario ha redimido
   $cuponesRedimidos = get_user_meta($currentUserID, 'cupones', true);
-  var_dump($cuponesRedimidos);
   
   if($cuponesRedimidos) {
     foreach($cuponesRedimidos as $cupon) {
@@ -36,15 +35,15 @@ function mdw_redimir_cupon_shortcode() {
   
   wp_enqueue_script('mdw-cupon-redimir-script', get_stylesheet_directory_uri() . '/inc/mdw-cupones/mdw_cupon_redimir.js', array('jquery'), null, true);
   wp_localize_script('mdw-cupon-redimir-script', 'wp_ajax', array(
-    'ajax_url'          => admin_url('admin-ajax.php'),
-    'nonce'             => wp_create_nonce('load_more_nonce'),
-    'cupon_id'          => $cuponID,
+    'ajax_url'            => admin_url('admin-ajax.php'),
+    'nonce'               => wp_create_nonce('load_more_nonce'),
+    'cupon_id'            => $cuponID,
+    'theme_directory_uri' => get_stylesheet_directory_uri(),
   ));
   ob_start();
   $html .= $redimido ? $htmlRedimido : $htmlRedimir;
 
-  // $html .= $redimido ? "" : mdw_popup_redimir_cupon($currentUserID);
-  $html .= mdw_popup_redimir_cupon($currentUserID);
+  $html .= $redimido ? "" : mdw_popup_redimir_cupon($currentUserID);
   ob_get_clean();
   return $html;
 }
@@ -82,7 +81,7 @@ if (!function_exists('mdw_redimir_cupon_ajax')) {
   function mdw_redimir_cupon_ajax()
   {
     check_ajax_referer('load_more_nonce', 'nonce');
-
+    // Datos recibidos por la solicitud Ajax
     $placa = isset($_POST['placa']) ? sanitize_text_field($_POST['placa']) : ''; // Recibe el dato suministrado por el usuario
     $cuponID = isset($_POST['cupon_id']) ? sanitize_text_field($_POST['cupon_id']) : ''; // Recibe el dato suministrado por el usuario
 
@@ -92,14 +91,14 @@ if (!function_exists('mdw_redimir_cupon_ajax')) {
     $userName = $currentUser->display_name;
     $userCedula = get_field('numero_cedula', 'user_' . $currentUserID);
 
-    $cuponName = get_the_title($cuponID);
+    $cuponName = get_the_title($cuponID); // Nombre del cupón
 
-    $apiKeyID = 'AKfycbw6mrKZKM2IP0LHy2F0u7WvzwGETxNxfrlYS-hEzrTsx9ECYCvKZ7sqdO78FbfmclIKwg';
+    $apiKeyID = get_field('api_key_google_sheet', $cuponID); // API Key de google sheet
 
     // URL del Web App de Google Script
     $url = "https://script.google.com/macros/s/$apiKeyID/exec";
 
-    // Datos a enviar
+    // Datos a enviar a Google Sheet
     $data = [
         'post_name'     => $cuponName,
         'user_name'     => $userName,
@@ -107,13 +106,13 @@ if (!function_exists('mdw_redimir_cupon_ajax')) {
         'placa_moto'    => $placa
     ];
 
-    // Enviar solicitud POST
-    wp_remote_post($url, [
-        'method' => 'POST',
-        'body' => $data
+    // Envia solicitud POST a Google Sheet
+    $response = wp_remote_post($url, [
+      'method' => 'POST',
+      'body'   => $data,
     ]);
     
-    // Obtener los cupones que el usuario ha redimido
+    // Obtiene los cupones que el usuario ha redimido
     $cuponesRedimidos = get_user_meta($currentUserID, 'cupones', true);
 
     // Asegurarnos de que $cuponesRedimidos sea un array
@@ -121,20 +120,22 @@ if (!function_exists('mdw_redimir_cupon_ajax')) {
       $cuponesRedimidos = [];
     }
 
-    // Crear un nuevo array con los datos del cupón
+    // Crea un nuevo array con los datos del cupón
     $nuevoCupon = [
       'cuponID' => $cuponID,
       'placa' => $placa,
     ];
 
-    // Añadir el nuevo cupón al array
+    // Añade el nuevo cupón al array
     $cuponesRedimidos[] = $nuevoCupon;
 
-    // Serializar el array y guardarlo usando update_user_meta
+    // Serializa el array y lo guardar
     update_user_meta($currentUserID, 'cupones', $cuponesRedimidos);
 
-    $html = 'si funciona';
-    wp_send_json_success($html);
+    // Validar si fue exitoso (código 200)
+    wp_send_json_success([
+        'message' => 'Cupón redimido correctamente.',
+    ]);
     wp_die();
   }
 }
