@@ -43,7 +43,8 @@ function mdw_redimir_cupon_shortcode() {
   ob_start();
   $html .= $redimido ? $htmlRedimido : $htmlRedimir;
 
-  $html .= $redimido ? "" : mdw_popup_redimir_cupon($currentUserID);
+  // $html .= $redimido ? "" : mdw_popup_redimir_cupon($currentUserID);
+  $html .= mdw_popup_redimir_cupon($currentUserID);
   ob_get_clean();
   return $html;
 }
@@ -88,6 +89,29 @@ if (!function_exists('mdw_redimir_cupon_ajax')) {
     //Datos del usuario
     $currentUser = wp_get_current_user();
     $currentUserID = $currentUser->ID;
+    $userName = $currentUser->display_name;
+    $userCedula = get_field('numero_cedula', 'user_' . $currentUserID);
+
+    $cuponName = get_the_title($cuponID);
+
+    $apiKeyID = 'AKfycbw6mrKZKM2IP0LHy2F0u7WvzwGETxNxfrlYS-hEzrTsx9ECYCvKZ7sqdO78FbfmclIKwg';
+
+    // URL del Web App de Google Script
+    $url = "https://script.google.com/macros/s/$apiKeyID/exec";
+
+    // Datos a enviar
+    $data = [
+        'post_name'     => $cuponName,
+        'user_name'     => $userName,
+        'numero_cedula' => $userCedula,
+        'placa_moto'    => $placa
+    ];
+
+    // Enviar solicitud POST
+    wp_remote_post($url, [
+        'method' => 'POST',
+        'body' => $data
+    ]);
     
     // Obtener los cupones que el usuario ha redimido
     $cuponesRedimidos = get_user_meta($currentUserID, 'cupones', true);
