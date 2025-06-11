@@ -23,15 +23,23 @@ function mdw_redimir_cupon_shortcode() {
   }
 
   $htmlRedimido = "
-    <button disabled>Redimir Cupón</button>
-    <div class='mdw__message'>
-      <span>
-        Ya has redimido este cupón. Podrás ver más información de este cupón en <a href='/mi-cuenta/cupones' class='mdw__message_link'>Mi Cuenta > Cupones</a>
-      </span>
-    </div>  
+    <div class='mdw__button_redimir-container'>
+      <button disabled class='mdw__button_redimir'>Redimir Cupón</button>
+      <div class='mdw__message'>
+        <span>
+          Ya has redimido este cupón. Podrás ver más información de este cupón en <a href='/mi-cuenta/cupones' class='mdw__message_link'>Mi Cuenta > Cupones</a>
+        </span>
+      </div>  
+    </div>
   ";
 
-  $htmlRedimir = "<button>Redimir Cupón</button>";
+  $htmlRedimir = "
+    <div class='mdw__button_redimir-container'>
+      <button id='mdw__button_redimir' class='mdw__button_redimir'>Redimir Cupón</button> 
+    </div>
+  ";
+  
+  wp_enqueue_style('mdw-cupones-style', get_stylesheet_directory_uri() . '/inc/mdw-cupones/style.css');
   
   wp_enqueue_script('mdw-cupon-redimir-script', get_stylesheet_directory_uri() . '/inc/mdw-cupones/mdw_cupon_redimir.js', array('jquery'), null, true);
   wp_localize_script('mdw-cupon-redimir-script', 'wp_ajax', array(
