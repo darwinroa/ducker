@@ -1,6 +1,17 @@
 jQuery(document).ready(function($) {
-  const buttonRedimir = $('#mdw__redimir_cupon-button');
+  const $popup = $('#mdw__redimir_popup');
 
+  // Abrir popup
+  $('#mdw__button_redimir').on('click', function() {
+    $popup.fadeIn().css('display', 'flex'); // usa flex para centrar
+  });
+
+  // Cerrar popup al hacer clic en "Cancelar" o en el overlay
+  $('#mdw__cancelar_cupon, .mdw__redimir_popup-overlay').on('click', function() {
+    $popup.fadeOut();
+  });
+  
+  const buttonRedimir = $('#mdw__redimir_cupon-button');
   buttonRedimir.on('click', function() {
     mdw_redimir_cupon_ajax();
   });
