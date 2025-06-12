@@ -10,6 +10,11 @@ jQuery(document).ready(function($) {
   $('#mdw__cancelar_cupon, .mdw__redimir_popup-overlay').on('click', function() {
     $popup.fadeOut();
   });
+
+  const selectPlaca = $('#mdw__select_placa');
+  selectPlaca.on('change', function() {
+    $('#mdw__redimir_cupon-button').removeAttr('disabled');
+  })
   
   const buttonRedimir = $('#mdw__redimir_cupon-button');
   buttonRedimir.on('click', function() {
@@ -17,7 +22,7 @@ jQuery(document).ready(function($) {
   });
 
   function mdw_redimir_cupon_ajax() {
-    const placa = $('#mdw__select_placa').val();
+    const placa = selectPlaca.val();
     $.ajax({
       url: wp_ajax.ajax_url,
       type: 'post',
@@ -29,13 +34,13 @@ jQuery(document).ready(function($) {
       },
       beforeSend: function(){
         const loaderUrl = wp_ajax.theme_directory_uri + '/inc/img/gear-spinner.svg';
-        $('#mdw__redimir_popup').html(`<div class='dc-loader-ajax' bis_skin_checked='1'><img decoding='async' data-src='${loaderUrl}' class=' ls-is-cached lazyloaded' src='${loaderUrl}'></div>`);
+        $('.mdw__redimir_popup-container').html(`<div class='dc-loader-ajax' bis_skin_checked='1'><img decoding='async' data-src='${loaderUrl}' class=' ls-is-cached lazyloaded' src='${loaderUrl}'></div>`);
       },
       success: function(response) {
         if (response.success) {
-            $('#mdw__redimir_popup').html(response.data.message);
+            $('.mdw__redimir_popup-container').html("<div class='mdw__redimir_popup-response'><span>Cupón redimido correctamente. Podrás ver más información de este cupón en <a href='/mi-cuenta/cupones' class='mdw__message_link'>Mi Cuenta > Cupones</a></span><a href='/mi-cuenta/cupones' class='mdw__button'>Ver mis cupones</a></div>");
         } else {
-            $('#mdw__redimir_popup').html('<p>Hubo un error en la solicitud.</p>');
+            $('.mdw__redimir_popup-container').html('<p>Hubo un error en la solicitud.</p>');
         }
       }
     })

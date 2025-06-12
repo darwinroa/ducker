@@ -29,29 +29,145 @@
 
   .mdw__button_redimir {
     background-color: var(--e-global-color-primary);
-    padding: 1rem 2rem;
-    border: none;
-    border-radius: 5px;
     text-transform: uppercase;
     font-weight: 600;
     font-size: 24px;
-    transition: all .2s ease-in;
 
     &:hover {
       background-color: #FFCC00A1;
-    }
-
-    &:disabled {
-      filter: grayscale(1);
-      cursor: not-allowed;
     }
   }
 
   .mdw__message {
     font-weight: 600;
 
-    .mdw__message_link:hover {
+    .mdw__message_link {
       color: var(--e-global-color-primary);
+
+      &:hover {
+        color: #000;
+      }
+    }
+  }
+}
+
+.mdw__button {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 5px;
+  transition: all .2s ease-in;
+
+  &:disabled {
+    filter: grayscale(1);
+    cursor: not-allowed;
+  }
+}
+
+.mdw__redimir_popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none; /* oculta por defecto */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  .mdw__redimir_popup-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    top: 0;
+    left: 0;
+  }
+
+  .mdw__redimir_popup-container {
+    background-color: var( --e-global-color-primary );
+    position: relative;
+    padding: 30px;
+    border-radius: 10px;
+    z-index: 1;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+
+    .mdw__redimir_popup-title {
+      color: #000;
+      font-family: "Amatic SC", Sans-serif;
+      font-size: 50px;
+      font-weight: 700;
+      line-height: 1.3em;
+      letter-spacing: 0px;
+      text-align: center;
+      margin: 0;
+    }
+
+    span {
+      a {
+        color: #000;
+        font-weight: bold;
+      }
+    }
+
+    .mdw__redimir_popup-description {
+      font-family: "Karla", Sans-serif;
+      font-size: 19px;
+    }
+
+    .dc-loader-ajax {
+      display: flex;
+      justify-content: center;
+
+      img {
+        max-width: 100px;
+      }
+    }
+
+    .mdw__redimir_popup-placa_container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1rem;
+
+      label {
+        font-family: "Karla", Sans-serif;
+        font-size: 19px;
+      }
+
+      select {
+        background-color: transparent;
+        padding: 10px;
+
+        option {
+          background-color: #000;
+          color: #FFF;
+        }
+      }
+    }
+
+    .mdw__redimir_popup-response {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+  }
+
+  .mdw__buttons_container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .mdw__button {
+    color: var( --e-global-color-primary );
+    background-color: #000;
+    border: solid 1px #000;
+
+    &:hover, &:disabled {
+      opacity: 0.7;
     }
   }
 }
