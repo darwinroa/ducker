@@ -19,6 +19,39 @@
   }
 }
 
+/*Query cupones - My Account*/
+.woocommerce-MyAccount-content {
+  .mdw__cupones_container {
+    h3 {
+      margin: 0 !important;
+    }
+
+    a {
+      color: #000 !important;
+
+      &:hover {
+        opacity: 1 !important;
+      }
+    }
+  }
+
+  .mdw__account_button-more_cupon {
+    display: flex;
+    justify-content: center;
+    margin-block: 2rem;
+
+    .mdw__button {
+      color: var( --e-global-color-primary );
+      background-color: #000;
+      border: solid 1px #000;
+
+      &:hover, &:disabled {
+        opacity: 0.7;
+      }
+    }
+  }
+}
+
 /*Single de cupones*/
 .mdw__button_redimir-container {
   display: flex;

@@ -102,8 +102,11 @@ if (!function_exists('mdw_redimir_cupon_ajax')) {
     //Datos del usuario
     $currentUser = wp_get_current_user();
     $currentUserID = $currentUser->ID;
-    $userName = $currentUser->display_name;
     $userCedula = get_field('numero_cedula', 'user_' . $currentUserID);
+    $first_name = $currentUser->first_name;
+    $last_name  = $currentUser->last_name;
+
+    $userName = trim($last_name . ' ' . $first_name);
 
     $cuponName = get_the_title($cuponID); // Nombre del cupón
 

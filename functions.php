@@ -25,6 +25,7 @@ require "inc/mdw-lists-users-csv/mdw_lists_users_csv.php"; // Handler lists user
 require "inc/mdw-handler-user-moto/mdw_handler_user_moto.php"; // Handler user moto
 require "inc/mdw-cupones/mdw_cupones_query.php"; // Cupones Query
 require "inc/mdw-cupones/mdw_cupon_redimir.php"; // Botón para redimis un cupón
+require "inc/mdw-cupones/mdw_mis_cupones.php"; // Listado de los cupones redimidos por el usuario
 
 
 // Shortcode para obtener solo el ID del usuario actual
@@ -64,12 +65,14 @@ function agregar_nueva_pestana_mi_cuenta( $items ) {
     $items['consulta-mantenimiento'] = __('Mantenimiento', 'woocommerce');
     $items['mis-motos'] = __('Mis motos', 'woocommerce');
     $items['registrar-moto'] = __('Registrar moto', 'woocommerce');
+    $items['mis-cupones'] = __('Mis cupones', 'woocommerce');
 
     // Reordenar los elementos
     $items_ordenados = array(
         'consulta-mantenimiento'    => __('Mantenimiento', 'woocommerce'),
         'mis-motos'                 => __('Mis motos', 'woocommerce'),
         'registrar-moto'            => __('Registrar moto', 'woocommerce'),
+        'cupones'               => __('Mis cupones', 'woocommerce'),
         'edit-account'              => __('Detalles de la cuenta', 'woocommerce'),
         'customer-logout'           => __('Cerrar sesión', 'woocommerce'),
     );
@@ -81,8 +84,9 @@ add_filter( 'woocommerce_account_menu_items', 'agregar_nueva_pestana_mi_cuenta' 
 // Agregar el endpoint para las nuevas pestañas
 function registrar_endpoint_nueva_pestana() {
     add_rewrite_endpoint( 'consulta-mantenimiento', EP_ROOT | EP_PAGES );
-    add_rewrite_endpoint( 'mis-motos', EP_ROOT | EP_PAGES );
+    add_rewrite_endpoint( 'motos', EP_ROOT | EP_PAGES );
     add_rewrite_endpoint( 'registrar-moto', EP_ROOT | EP_PAGES );
+    add_rewrite_endpoint( 'cupones', EP_ROOT | EP_PAGES );
 }
 add_action( 'init', 'registrar_endpoint_nueva_pestana' );
 
@@ -103,6 +107,12 @@ function mdw_registrar_moto_content() {
     echo do_shortcode('[contact-form-7 id="3cba2ff" title="Registrar Moto"]');
 }
 add_action( 'woocommerce_account_registrar-moto_endpoint', 'mdw_registrar_moto_content' );
+
+// Mostrar contenido de mis cupones
+function mdw_mis_cupones() {
+    echo do_shortcode('[mdw_mis_cupones]');
+}
+add_action( 'woocommerce_account_cupones_endpoint', 'mdw_mis_cupones' );
 
 // Redirigir a la página de consulta de mantenimiento después de iniciar sesión
 function custom_woocommerce_login_redirect($redirect, $user) {
