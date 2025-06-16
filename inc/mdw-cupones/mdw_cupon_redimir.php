@@ -125,9 +125,34 @@ if (!function_exists('mdw_redimir_cupon_ajax')) {
 
     // Envia solicitud POST a Google Sheet
     $response = wp_remote_post($url, [
-      'method' => 'POST',
-      'body'   => $data,
+      'method'  => 'POST',
+      'body'    => $data,
+      'timeout' => 10, // segundos
     ]);
+
+    // Validar si hay un error de conexión (WP_Error)
+    if (is_wp_error($response)) {
+      $error_message = $response->get_error_message();
+      wp_send_json_error(['message' => 'Error de conexión: ' . $error_message]);
+      wp_die();
+    }
+
+    // Obtener el código de estado HTTP y el cuerpo
+    $response_code = wp_remote_retrieve_response_code($response);
+    $response_body = wp_remote_retrieve_body($response);
+
+    // Intenta interpretar la respuesta como JSON
+    $json = json_decode($response_body, true);
+    
+    // Validar si la respuesta fue satisfactoria
+    if ($response_code === 500 || $response_code === 404) {
+       wp_send_json_error([
+        'message' => 'Error al registrar en Google Sheets.',
+        'response_code' => $response_code,
+        'response_body' => $response_body,
+        'json' => $json,
+      ]);
+    }
     
     // Obtiene los cupones que el usuario ha redimido
     $cuponesRedimidos = get_user_meta($currentUserID, 'cupones', true);
@@ -152,6 +177,7 @@ if (!function_exists('mdw_redimir_cupon_ajax')) {
     // Validar si fue exitoso (código 200)
     wp_send_json_success([
         'message' => 'Cupón redimido correctamente.',
+        'http_code' => $response_code,
     ]);
     wp_die();
   }

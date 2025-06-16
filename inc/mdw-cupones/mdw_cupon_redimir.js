@@ -39,8 +39,9 @@ jQuery(document).ready(function($) {
       success: function(response) {
         if (response.success) {
             $('.mdw__redimir_popup-container').html("<div class='mdw__redimir_popup-response'><span>Cupón redimido correctamente. Podrás ver más información de este cupón en <a href='/mi-cuenta/cupones' class='mdw__message_link'>Mi Cuenta > Cupones</a></span><a href='/mi-cuenta/cupones' class='mdw__button'>Ver mis cupones</a></div>");
+
         } else {
-            $('.mdw__redimir_popup-container').html('<p>Hubo un error en la solicitud.</p>');
+            $('.mdw__redimir_popup-container').html("<div class='mdw__redimir_popup-response'><span>Hubo un error en la solicitud.</span><a href='/cupones-disponibles' class='mdw__button'>Ver cupones</a></div>");
         }
       }
     })
