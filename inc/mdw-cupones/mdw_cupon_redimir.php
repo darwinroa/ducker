@@ -182,6 +182,3 @@ if (!function_exists('mdw_redimir_cupon_ajax')) {
     wp_die();
   }
 }
-
-?>
-
