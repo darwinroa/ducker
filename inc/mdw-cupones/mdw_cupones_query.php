@@ -29,7 +29,7 @@ function mdw_cupones_query_shortcode() {
         // Se valida que el cupón esté activo comparando la fecha de vencimiento con la fecha actual
         $fechaTimestamp = DateTime::createFromFormat('d/m/Y', $fechaVencimiento)->getTimestamp();
         if ($fechaTimestamp >= time()) {
-          $html .= do_shortcode('[elementor-template id="4635"]');
+          $html .= do_shortcode('[elementor-template id="4702"]');
         }
       }
     }
