@@ -84,7 +84,7 @@ add_filter( 'woocommerce_account_menu_items', 'agregar_nueva_pestana_mi_cuenta' 
 // Agregar el endpoint para las nuevas pestañas
 function registrar_endpoint_nueva_pestana() {
     add_rewrite_endpoint( 'consulta-mantenimiento', EP_ROOT | EP_PAGES );
-    add_rewrite_endpoint( 'motos', EP_ROOT | EP_PAGES );
+    add_rewrite_endpoint( 'mis-motos', EP_ROOT | EP_PAGES );
     add_rewrite_endpoint( 'registrar-moto', EP_ROOT | EP_PAGES );
     add_rewrite_endpoint( 'cupones', EP_ROOT | EP_PAGES );
 }
