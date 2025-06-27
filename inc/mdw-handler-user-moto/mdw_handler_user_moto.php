@@ -38,10 +38,10 @@ function mdw_handler_user_moto_function() {
     'user_id' => $current_user,
   ));
   
+  ob_start();
   $motos_registradas = get_user_meta($current_user, 'motos', true);
   if ($motos_registradas && is_array($motos_registradas) && count($motos_registradas) > 0) {
 
-    ob_start();
 
     $html .= '<h2 class="mdw__title_table">Motos Registradas</h2>';
 
@@ -83,7 +83,7 @@ function mdw_handler_user_moto_function() {
       </table>
       $htmlPopUp
     ";   
-  }
+  } else $html .= '<p>No tienes ninguna moto registrada. Registra una moto en <a href="/mi-cuenta/registrar-moto/">Mi cuenta > Registrar Moto</a></p>';
 
   ob_get_clean();
   return $html;
